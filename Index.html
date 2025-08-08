@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>N&W ðŸ’–</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .nw-logo {
+      font-size: 3em;
+      font-weight: bold;
+      color: #ff007f;
+      letter-spacing: 5px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      background-color: #ff007f;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 1.3em;
+      color: #ff7fa0;
+      display: none;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff007f;
+      transform: rotate(45deg);
+      animation: floatUp 6s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff007f;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="nw-logo">N&W</div>
+  <h1>Em que dia comeamos a nos falar?</h1>
+  <input type="text" id="answer" placeholder="Digite a resposta...">
+  <button onclick="checkAnswer()">Enviar</button>
+  <div class="message" id="result"></div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const correctAnswers = ["05/08", "terça", "terca"];
+
+    function checkAnswer() {
+      const userAnswer = document.getElementById("answer").value.toLowerCase().trim();
+      const result = document.getElementById("result");
+
+      if (correctAnswers.includes(userAnswer)) {
+        result.innerHTML = "Sei que foi meio rapido mas sinto como se fosse você a pessoa certa des de o momento em que nos conhecemos, gostaria de ter uma vida ao seu lado, com um monte de gatinhos e dois filhos lindos, a pergunta é... <br><strong>Aceita namorar comigo?</strong> ";
+        result.style.display = "block";
+        showHearts();
+      } else {
+        result.innerHTML = "Quase, tenta de novo meu bem!";
+        result.style.display = "block";
+      }
+    }
+
+    function showHearts() {
+      const heartsContainer = document.getElementById("hearts");
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        heartsContainer.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+    }
+  </script>
+</body>
+</html>
